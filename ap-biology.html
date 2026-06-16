@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AP Biology — Summer Preview Workbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --parchment: #faf7f2;
+  --ink: #1a1612;
+  --ink-muted: #5c5448;
+  --ink-faint: #a09888;
+  --green: #1f5c2e;
+  --green-light: #eaf5ec;
+  --green-border: #4a9b5e;
+  --gold: #b07d2e;
+  --gold-light: #fdf5e6;
+  --navy: #1b2e4a;
+  --navy-light: #e8edf5;
+  --border: rgba(31,92,46,0.15);
+  --border-med: rgba(31,92,46,0.25);
+  --page: #f4f1eb;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--page);
+  font-family: 'Source Serif 4', Georgia, serif;
+  color: var(--ink);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+.shell {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: var(--navy);
+  padding: 2rem 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-brand {
+  padding: 0 1.5rem 1.5rem;
+  border-bottom: 0.5px solid rgba(255,255,255,0.1);
+  margin-bottom: 1.5rem;
+}
+.sidebar-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 6px;
+}
+.sidebar-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.25;
+}
+.sidebar-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 4px;
+  font-style: italic;
+}
+.sidebar-nav { flex: 1; }
+.sidebar-section-label {
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  padding: 0 1.5rem;
+  margin-bottom: 4px;
+}
+.sidebar-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 1.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+}
+.sidebar-btn:hover { background: rgba(255,255,255,0.07); }
+.sidebar-btn.active { background: rgba(255,255,255,0.12); border-right: 2px solid var(--green-border); }
+.sidebar-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.35);
+  min-width: 18px;
+}
+.sidebar-btn.active .sidebar-num { color: var(--green-border); }
+.sidebar-unit-name {
+  font-size: 12px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.3;
+}
+.sidebar-btn.active .sidebar-unit-name { color: #fff; }
+.sidebar-period {
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+}
+.sidebar-btn.active .sidebar-period { color: rgba(255,255,255,0.5); }
+.sidebar-footer {
+  padding: 1.5rem 1.5rem 0;
+  border-top: 0.5px solid rgba(255,255,255,0.1);
+  margin-top: auto;
+}
+.sidebar-footer p {
+  font-size: 10px;
+  color: rgba(255,255,255,0.25);
+  line-height: 1.5;
+}
+
+.main {
+  background: var(--parchment);
+  padding: 3rem 3.5rem;
+  max-width: 760px;
+}
+
+.cover { padding: 1rem 0 3rem; }
+.cover-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 1rem;
+}
+.cover h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 44px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+.cover-rule {
+  width: 80px;
+  height: 3px;
+  background: var(--gold);
+  margin-bottom: 1.5rem;
+}
+.cover-intro {
+  font-size: 16px;
+  color: var(--ink-muted);
+  line-height: 1.75;
+  font-weight: 300;
+  max-width: 540px;
+  margin-bottom: 2rem;
+}
+.cover-banner {
+  background: var(--navy);
+  border-radius: 10px;
+  padding: 20px 24px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  margin-bottom: 2.5rem;
+}
+.cover-banner-icon { font-size: 26px; flex-shrink: 0; margin-top: 2px; }
+.cover-banner-text { font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.65; font-weight: 300; }
+.cover-banner-text strong { color: #fff; font-weight: 500; display: block; margin-bottom: 4px; font-size: 15px; }
+.cover-units-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.cover-unit-card {
+  border: 0.5px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.15s;
+  border-left: 3px solid var(--green-border);
+}
+.cover-unit-card:hover { background: var(--green-light); border-left-color: var(--green); }
+.cover-unit-card-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 11px;
+  color: var(--green);
+  margin-bottom: 3px;
+}
+.cover-unit-card-title {
+  font-size: 13px;
+  color: var(--ink);
+  font-weight: 400;
+  line-height: 1.3;
+}
+.cover-unit-card-period {
+  font-size: 11px;
+  color: var(--ink-faint);
+  margin-top: 3px;
+}
+
+.unit-panel { display: none; }
+.unit-panel.active { display: block; }
+
+.unit-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 0.5px solid var(--border-med);
+}
+.unit-num-large {
+  font-family: 'Playfair Display', serif;
+  font-size: 60px;
+  font-weight: 700;
+  color: var(--green);
+  opacity: 0.2;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.unit-period-badge {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 5px;
+}
+.unit-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 0.5px solid var(--border-med);
+  margin-bottom: 2rem;
+}
+.tab-btn {
+  font-size: 13px;
+  font-family: 'Source Serif 4', serif;
+  color: var(--ink-faint);
+  padding: 9px 20px 11px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.15s;
+}
+.tab-btn:hover { color: var(--ink); }
+.tab-btn.active { color: var(--green); border-bottom-color: var(--green); }
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+.section-label {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 1rem;
+}
+
+.concepts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 2rem;
+}
+.concept-card {
+  background: #fff;
+  border: 0.5px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 18px;
+  border-left: 3px solid var(--green-border);
+}
+.concept-card h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.concept-card p {
+  font-size: 13.5px;
+  color: var(--ink-muted);
+  line-height: 1.65;
+  font-weight: 300;
+}
+
+.timeline-list { margin-bottom: 2rem; }
+.timeline-row {
+  display: flex;
+  gap: 0;
+  align-items: flex-start;
+}
+.timeline-year {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--green);
+  min-width: 72px;
+  padding-top: 2px;
+  flex-shrink: 0;
+}
+.timeline-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 24px;
+  flex-shrink: 0;
+}
+.timeline-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green-border);
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+.timeline-connector {
+  width: 1px;
+  flex: 1;
+  min-height: 24px;
+  background: var(--border-med);
+  margin-top: 4px;
+}
+.timeline-event {
+  font-size: 13.5px;
+  color: var(--ink-muted);
+  line-height: 1.65;
+  font-weight: 300;
+  padding: 0 0 18px 12px;
+}
+
+.figures-pills {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 2rem;
+}
+.figure-pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: #fff;
+  border: 0.5px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.figure-pill:hover { background: var(--green-light); border-color: var(--green-border); }
+.figure-pill.open { background: var(--green-light); border-color: var(--green); border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.figure-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.figure-name { font-size: 14px; color: var(--ink); font-weight: 400; }
+.figure-detail {
+  display: none;
+  font-size: 13.5px;
+  color: var(--ink-muted);
+  line-height: 1.7;
+  font-weight: 300;
+  padding: 14px 16px;
+  background: var(--green-light);
+  border: 0.5px solid var(--green);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  margin-bottom: 2px;
+}
+.figure-detail.visible { display: block; }
+.figure-detail strong { color: var(--ink); font-weight: 500; }
+
+.quiz-q { margin-bottom: 2rem; }
+.quiz-q-text { font-size: 15px; color: var(--ink); line-height: 1.6; margin-bottom: 1rem; font-weight: 400; }
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+.quiz-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 11px 14px;
+  background: #fff;
+  border: 0.5px solid var(--border-med);
+  border-radius: 7px;
+  cursor: pointer;
+  text-align: left;
+  font-family: 'Source Serif 4', serif;
+  font-size: 13.5px;
+  color: var(--ink-muted);
+  line-height: 1.5;
+  transition: all 0.15s;
+}
+.quiz-option:hover:not(.disabled) { background: var(--green-light); border-color: var(--green-border); }
+.quiz-option.disabled { cursor: default; }
+.quiz-option.correct { background: #eaf5ec; border-color: var(--green); color: var(--green); }
+.quiz-option.reveal-correct { background: #eaf5ec; border-color: var(--green); color: var(--green); opacity: 0.7; }
+.quiz-option.incorrect { background: #fdecea; border-color: #c0392b; color: #922b21; }
+.quiz-letter {
+  font-family: 'Playfair Display', serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--green);
+  min-width: 18px;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.quiz-explain {
+  display: none;
+  font-size: 13px;
+  color: var(--ink-muted);
+  line-height: 1.7;
+  font-weight: 300;
+  font-style: italic;
+  padding: 12px 16px;
+  background: var(--gold-light);
+  border: 0.5px solid rgba(176,125,46,0.3);
+  border-radius: 7px;
+  margin-top: 10px;
+}
+.quiz-explain.visible { display: block; }
+
+.prev-next {
+  display: flex;
+  gap: 12px;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 0.5px solid var(--border-med);
+}
+.nav-btn {
+  padding: 9px 20px;
+  background: transparent;
+  border: 0.5px solid var(--border-med);
+  border-radius: 6px;
+  font-family: 'Source Serif 4', serif;
+  font-size: 13px;
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.nav-btn:hover:not(:disabled) { background: var(--green-light); color: var(--green); border-color: var(--green-border); }
+.nav-btn:disabled { opacity: 0.3; cursor: default; }
+</style>
+</head>
+<body>
+<div class="shell">
+  <nav class="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-eyebrow">AP Exam Prep</div>
+      <div class="sidebar-title">AP Biology</div>
+      <div class="sidebar-sub">Summer Preview Workbook</div>
+    </div>
+    <div class="sidebar-nav">
+      <div class="sidebar-section-label" style="margin-bottom:10px;">Overview</div>
+      <button class="sidebar-btn active" id="sidebar-cover" onclick="showPage('cover', this)">
+        <span class="sidebar-num">⌂</span>
+        <div>
+          <div class="sidebar-unit-name">Course Overview</div>
+          <div class="sidebar-period">Start Here</div>
+        </div>
+      </button>
+      <div class="sidebar-section-label" style="margin-top:1rem;margin-bottom:6px;">Units</div>
+      <div id="sidebarUnits"></div>
+    </div>
+    <div class="sidebar-footer">
+      <p>AP® Biology. Content aligned with College Board course framework. For summer self-study and preview use.</p>
+    </div>
+  </nav>
+
+  <main class="main">
+    <div id="page-cover">
+      <div class="cover">
+        <div class="cover-eyebrow">Summer Preview · AP Biology</div>
+        <h1>Cells. Genes.<br>Evolution. Life.</h1>
+        <div class="cover-rule"></div>
+        <p class="cover-intro">This workbook previews the eight core units of AP Biology — the concepts, landmark discoveries, key scientists, and AP-style questions that will define your year. Use it this summer to build the mental framework you need to think like a biologist on day one.</p>
+
+        <div class="cover-banner">
+          <div class="cover-banner-icon">🔬</div>
+          <div class="cover-banner-text">
+            <strong>What AP Bio is really about</strong>
+            AP Biology is organized around four Big Ideas: evolution, cellular processes, genetics & information transfer, and interactions in biological systems. The exam is 60 multiple-choice questions plus 6 free-response questions — and it heavily emphasizes data analysis, experimental design, and applying concepts to novel scenarios rather than memorizing isolated facts.
+          </div>
+        </div>
+
+        <div id="coverGrid" class="cover-units-grid"></div>
+      </div>
+    </div>
+
+    <div id="unitPanels"></div>
+  </main>
+</div>
+
+<script>
+const units = [
+  {
+    number: "I", roman: "I",
+    period: "Big Idea 1",
+    title: "Chemistry of Life",
+    concepts: [
+      { title: "Water & Its Properties", text: "Water's polarity gives it unique properties essential to life: cohesion, adhesion, high specific heat, high heat of vaporization, and universal solvent ability. These properties regulate temperature, enable transport, and create the aqueous environment in which biochemistry occurs." },
+      { title: "Macromolecules", text: "The four classes of biological macromolecules — carbohydrates, lipids, proteins, and nucleic acids — are built from monomers by dehydration synthesis and broken apart by hydrolysis. Structure determines function at every level, from monosaccharide ring shape to protein tertiary folding." },
+      { title: "Proteins & Enzyme Function", text: "Proteins have four levels of structure (primary → quaternary). Enzymes are biological catalysts that lower activation energy without being consumed. Enzyme activity is affected by temperature, pH, substrate concentration, and competitive or noncompetitive inhibitors." },
+      { title: "Nucleic Acids", text: "DNA and RNA are polynucleotides built from nucleotide monomers (sugar + phosphate + nitrogenous base). DNA's antiparallel double helix stores hereditary information; RNA carries and translates it. Base pairing rules (A-T/U, G-C) underlie replication, transcription, and translation." }
+    ],
+    timeline: [
+      { year: "1828", event: "<strong>Friedrich Wöhler synthesizes urea</strong> from inorganic materials — disproving 'vitalism' and establishing that life's molecules obey the same chemistry as everything else." },
+      { year: "1869", event: "<strong>Friedrich Miescher isolates nuclein</strong> (later called nucleic acid) from white blood cells — the first isolation of DNA, though its function was unknown for 80 more years." },
+      { year: "1926", event: "<strong>James Sumner crystallizes urease</strong>, proving enzymes are proteins — a Nobel Prize–winning confirmation of the protein nature of biological catalysts." },
+      { year: "1953", event: "<strong>Watson & Crick describe DNA's double helix</strong> using X-ray crystallography data from Rosalind Franklin, revealing how structure encodes hereditary information." },
+      { year: "1965", event: "<strong>Induced fit model of enzyme action</strong> proposed by Daniel Koshland, refining the earlier 'lock and key' model by showing the enzyme changes shape upon substrate binding." }
+    ],
+    figures: [
+      { initials: "LP", name: "Linus Pauling", note: "Chemist who applied quantum mechanics to chemical bonding and described the alpha-helix and beta-sheet as protein secondary structures (1951). His work on molecular disease (sickle cell anemia, 1949) pioneered the concept of molecular medicine." },
+      { initials: "RF", name: "Rosalind Franklin", note: "X-ray crystallographer whose Photo 51 (1952) provided the critical evidence for DNA's helical structure and the dimensions of the double helix — data that Watson and Crick used, controversially without her knowledge, to build their model." },
+      { initials: "JB", name: "James Sumner", note: "Biochemist who crystallized urease in 1926, proving for the first time that enzymes are proteins. He received the Nobel Prize in Chemistry in 1946, validating decades of controversial work that the scientific establishment had resisted." },
+      { initials: "FW", name: "Friedrich Wöhler", note: "Chemist who in 1828 accidentally synthesized urea from ammonium cyanate, a purely inorganic reaction — the first synthesis of an organic compound from inorganic precursors, which dealt a fatal blow to the theory that life required a special 'vital force.'" }
+    ],
+    questions: [
+      { q: "Which property of water is most directly responsible for its role as a 'universal solvent' for biological molecules?", opts: ["Its high specific heat capacity", "Its polarity, allowing it to form hydrogen bonds with solutes", "Its high surface tension from cohesive forces", "Its low density in solid form compared to liquid form"], answer: 1, explain: "Water's polar covalent bonds create a partial negative charge near oxygen and partial positive charges near hydrogen. This allows water molecules to form hydrogen bonds with other polar or charged molecules, surrounding and dissolving ionic and polar solutes. AP free-response questions frequently ask you to connect water's polarity to a specific biological function." },
+      { q: "A competitive inhibitor reduces enzyme activity by:", opts: ["Permanently bonding to the active site and destroying it", "Binding to the allosteric site and changing the active site's shape", "Occupying the active site and directly blocking substrate binding", "Increasing the activation energy required for the reaction"], answer: 2, explain: "Competitive inhibitors share structural similarity to the substrate and compete for the same active site — they block substrate binding by occupying the binding pocket. Unlike noncompetitive inhibitors (which bind allosteric sites), competitive inhibition can be overcome by increasing substrate concentration. AP multiple choice frequently tests the distinction between competitive and noncompetitive inhibition." },
+      { q: "Dehydration synthesis reactions that build macromolecules always result in:", opts: ["The addition of a water molecule to break a covalent bond", "The removal of a water molecule to form a covalent bond between monomers", "The use of ATP to force monomers together without releasing water", "The formation of hydrogen bonds between adjacent monomers"], answer: 1, explain: "Dehydration synthesis (also called condensation) joins monomers by removing one water molecule — one monomer contributes –OH, the other contributes –H — forming a covalent bond. The reverse, hydrolysis, adds water to break these bonds. This pair of reactions underlies the building and digestion of all four classes of macromolecules." }
+    ]
+  },
+  {
+    number: "II", roman: "II",
+    period: "Big Idea 2",
+    title: "Cell Structure & Function",
+    concepts: [
+      { title: "Prokaryotes vs. Eukaryotes", text: "Prokaryotic cells (bacteria, archaea) lack a membrane-bound nucleus and most organelles. Eukaryotic cells have a nucleus and extensive endomembrane system. The endosymbiotic theory explains the origin of mitochondria and chloroplasts as once-free prokaryotes engulfed by a host cell." },
+      { title: "The Plasma Membrane", text: "The fluid mosaic model describes the membrane as a phospholipid bilayer with embedded proteins. Cholesterol stabilizes fluidity. Membrane proteins function as channels, carriers, receptors, enzymes, and cell-identity markers. Selective permeability controls what crosses the membrane." },
+      { title: "Membrane Transport", text: "Passive transport (diffusion, osmosis, facilitated diffusion) moves substances down concentration gradients — no ATP required. Active transport moves substances against gradients and requires ATP. Endocytosis and exocytosis move large particles using vesicles." },
+      { title: "Cell Communication", text: "Cells signal each other through chemical messengers. Signal transduction pathways convert extracellular signals into intracellular responses via receptor binding → transduction → cellular response. Feedback loops (positive and negative) regulate signaling cascades." }
+    ],
+    timeline: [
+      { year: "1665", event: "<strong>Robert Hooke coins 'cell'</strong> while observing cork through a microscope — the first recorded use of the term for the structural unit of living organisms." },
+      { year: "1839", event: "<strong>Schleiden & Schwann formulate the Cell Theory</strong>: all living things are composed of cells, and cells are the basic unit of life." },
+      { year: "1858", event: "<strong>Virchow adds the third tenet</strong>: all cells arise from pre-existing cells (omnis cellula e cellula), establishing continuity of life." },
+      { year: "1972", event: "<strong>Singer & Nicolson propose the fluid mosaic model</strong> of membrane structure, describing proteins floating in a phospholipid bilayer — the current standard model." },
+      { year: "1994", event: "<strong>Lynn Margulis's endosymbiotic theory gains wide acceptance</strong> — mitochondria and chloroplasts originated as free-living prokaryotes engulfed by ancestral eukaryotic cells ~1.5–2 billion years ago." }
+    ],
+    figures: [
+      { initials: "LM", name: "Lynn Margulis", note: "Biologist who developed and championed the endosymbiotic theory, arguing that mitochondria and chloroplasts were once free-living prokaryotes. Initially rejected by mainstream science, her 1967 paper was refused by 15 journals before publication; it is now foundational to cell biology." },
+      { initials: "RH", name: "Robert Hooke", note: "Scientist and polymath who in 1665 published Micrographia, describing his microscopic observations of cork cells. His term 'cell' (from the Latin for small room) became the universal name for the fundamental unit of life." },
+      { initials: "GE", name: "Günter Blobel", note: "Cell biologist who won the 1999 Nobel Prize for discovering signal sequences — short amino acid strings that direct newly synthesized proteins to their correct cellular destination. His work explained how cells sort and route proteins through the endomembrane system." },
+      { initials: "RV", name: "Rudolf Virchow", note: "Pathologist who in 1858 articulated the third tenet of cell theory: 'omnis cellula e cellula' — all cells come from pre-existing cells. This principle established biological continuity and became fundamental to understanding disease, cancer, and heredity." }
+    ],
+    questions: [
+      { q: "A cell placed in a hypertonic solution will:", opts: ["Gain water by osmosis and potentially lyse", "Lose water by osmosis and shrink (crenate)", "Remain unchanged because solute concentration is equal on both sides", "Actively pump water out using ATP to maintain volume"], answer: 1, explain: "In a hypertonic solution, solute concentration outside the cell exceeds that inside. Water moves by osmosis from high water potential (inside the cell) to low water potential (outside), causing the cell to lose water and shrink. AP questions on osmosis frequently test whether students can correctly identify the direction of water movement based on relative solute concentrations." },
+      { q: "Which evidence best supports the endosymbiotic origin of mitochondria?", opts: ["Mitochondria have a smooth outer membrane like other organelles", "Mitochondria contain their own circular DNA and 70S ribosomes similar to bacteria", "Mitochondria are only found in animal cells, not plant cells", "Mitochondria divide by mitosis like the nucleus"], answer: 1, explain: "The strongest evidence for endosymbiosis is that mitochondria have circular DNA (like bacteria, not linear like eukaryotic chromosomes), bacterial-sized 70S ribosomes (not eukaryotic 80S), a double membrane (the inner being the original prokaryote's membrane), and they reproduce by binary fission. AP free-response questions about evolution of eukaryotes almost always require these specific pieces of evidence." },
+      { q: "The sodium-potassium pump (Na⁺/K⁺ ATPase) is an example of:", opts: ["Passive transport, because ions move along their concentration gradients", "Facilitated diffusion, because channel proteins assist ion movement", "Active transport, because ions are moved against their concentration gradients using ATP", "Osmosis, because water follows sodium ions across the membrane"], answer: 2, explain: "The Na⁺/K⁺ pump moves 3 Na⁺ out and 2 K⁺ in per ATP hydrolyzed — both ions move against their concentration gradients (from low to high concentration), which is the definition of active transport. This pump maintains the electrochemical gradient essential for nerve impulses and muscle contraction." }
+    ]
+  },
+  {
+    number: "III", roman: "III",
+    period: "Big Idea 2",
+    title: "Cellular Energetics",
+    concepts: [
+      { title: "Photosynthesis: Light Reactions", text: "In the thylakoid membranes, light energy excites electrons in chlorophyll. The light reactions produce ATP and NADPH via the electron transport chain and photophosphorylation, and split water (photolysis), releasing O₂ as a byproduct. Photosystems I and II work in series." },
+      { title: "Photosynthesis: Calvin Cycle", text: "In the stroma, the Calvin cycle uses ATP and NADPH to fix CO₂ into G3P (glyceraldehyde-3-phosphate) via carbon fixation, reduction, and RuBP regeneration. Three CO₂ molecules are needed to produce one net G3P. RuBisCO is the key enzyme." },
+      { title: "Cellular Respiration", text: "Glucose is oxidized to CO₂ across three stages: glycolysis (cytoplasm, 2 net ATP), pyruvate oxidation and the Krebs cycle (mitochondrial matrix, 2 ATP + electron carriers), and oxidative phosphorylation (inner mitochondrial membrane, ~32–34 ATP). O₂ is the final electron acceptor." },
+      { title: "Fermentation", text: "When O₂ is absent, cells regenerate NAD⁺ through fermentation — lactic acid fermentation (animals/bacteria) or alcoholic fermentation (yeast). Fermentation produces only 2 ATP per glucose (from glycolysis) and does not use the electron transport chain." }
+    ],
+    timeline: [
+      { year: "1770", event: "<strong>Joseph Priestley discovers oxygen</strong> by showing that plants restore air 'injured' by burning candles — an early recognition that photosynthesis produces O₂." },
+      { year: "1937", event: "<strong>Hans Krebs describes the citric acid cycle</strong> (Krebs cycle), earning the 1953 Nobel Prize for mapping the central metabolic pathway of aerobic respiration." },
+      { year: "1954", event: "<strong>Calvin, Benson & Bassham describe the Calvin cycle</strong> using radioactive carbon-14 to trace CO₂ fixation — Melvin Calvin received the Nobel Prize in 1961." },
+      { year: "1961", event: "<strong>Peter Mitchell proposes chemiosmosis</strong> — the hypothesis that ATP is synthesized by proton gradients across membranes — awarded the Nobel Prize in 1978 after initial rejection by the scientific community." },
+      { year: "1978", event: "<strong>ATP synthase structure elucidated</strong> — Mitchell's chemiosmotic model confirmed; the rotary mechanism of ATP synthase is later described in detail (Nobel Prize, Boyer & Walker, 1997)." }
+    ],
+    figures: [
+      { initials: "PM", name: "Peter Mitchell", note: "Biochemist who proposed chemiosmosis in 1961 — the revolutionary idea that the proton gradient across the inner mitochondrial membrane (not a chemical intermediate) drives ATP synthesis. Rejected for years, his hypothesis was eventually confirmed and earned him the 1978 Nobel Prize in Chemistry." },
+      { initials: "MC", name: "Melvin Calvin", note: "Chemist who used radioactive ¹⁴C to trace carbon through photosynthesis, mapping the light-independent reactions now called the Calvin cycle (1950s). His work revealed how CO₂ is fixed into organic molecules, earning the 1961 Nobel Prize in Chemistry." },
+      { initials: "HK", name: "Hans Krebs", note: "Biochemist who in 1937 described the citric acid cycle — the central metabolic hub through which carbohydrates, fats, and proteins are all ultimately oxidized. The Krebs cycle earns its own page in every AP Biology textbook and appears on nearly every AP exam." },
+      { initials: "JP", name: "Joseph Priestley", note: "Chemist and minister who in 1771–1774 showed that plants 'restore' air depleted by burning and animal respiration — the first experimental evidence for photosynthesis and the origin of the concept that plants produce oxygen." }
+    ],
+    questions: [
+      { q: "In the light reactions of photosynthesis, water molecules are split primarily to:", opts: ["Provide glucose directly to the Calvin cycle", "Supply electrons to replace those lost by excited chlorophyll in Photosystem II", "Generate the CO₂ needed for carbon fixation in the stroma", "Produce NADPH for use in the electron transport chain"], answer: 1, explain: "Water photolysis (2H₂O → 4H⁺ + 4e⁻ + O₂) occurs at Photosystem II to replenish electrons that have been excited by light and passed to the electron transport chain. O₂ is a byproduct. AP questions frequently ask why water splitting occurs — it's always to replace electrons, not to produce water or CO₂." },
+      { q: "Which statement correctly compares aerobic respiration to fermentation?", opts: ["Both produce the same net amount of ATP per glucose molecule", "Aerobic respiration produces far more ATP because it uses the electron transport chain and O₂ as the final electron acceptor", "Fermentation produces more ATP because it does not require the energy-costly Krebs cycle", "Both require oxygen but differ in where CO₂ is produced"], answer: 1, explain: "Aerobic respiration yields ~36–38 ATP per glucose; fermentation yields only 2 ATP (from glycolysis alone). The massive difference comes from oxidative phosphorylation — the ETC passes electrons to O₂, driving chemiosmosis and ATP synthase. Fermentation only regenerates NAD⁺ to keep glycolysis running, producing no additional ATP." },
+      { q: "The chemiosmotic synthesis of ATP in mitochondria depends on:", opts: ["Direct transfer of phosphate groups from substrate molecules to ADP", "The flow of protons down a concentration gradient through ATP synthase", "The hydrolysis of NADH to release energy for ADP phosphorylation", "The direct reaction of O₂ with glucose to release energy"], answer: 1, explain: "Chemiosmosis uses the proton gradient built by the ETC: H⁺ ions pumped into the intermembrane space flow back into the matrix through ATP synthase, whose rotation drives ADP + Pᵢ → ATP. This is oxidative phosphorylation. Substrate-level phosphorylation (answer A) is the mechanism in glycolysis and the Krebs cycle, accounting for only 4 of the ~38 total ATP." }
+    ]
+  },
+  {
+    number: "IV", roman: "IV",
+    period: "Big Idea 3",
+    title: "Cell Communication & Cell Cycle",
+    concepts: [
+      { title: "Signal Transduction", text: "Cells communicate via chemical signals that bind to receptors. Signal transduction converts an extracellular message into an intracellular response through three stages: reception (ligand binds receptor), transduction (cascade of molecular changes), and response (activation of proteins, gene expression, etc.)." },
+      { title: "The Cell Cycle", text: "The eukaryotic cell cycle has interphase (G₁, S, G₂) and M phase (mitosis + cytokinesis). DNA replication occurs in S phase. Checkpoints at G₁, G₂, and M phase spindle assembly ensure accuracy. Cyclins and cyclin-dependent kinases (CDKs) regulate transitions between phases." },
+      { title: "Mitosis", text: "Mitosis (PMAT: prophase, metaphase, anaphase, telophase) produces two genetically identical daughter cells. Sister chromatids separate at anaphase when cohesin is cleaved. Cytokinesis differs: animal cells form a cleavage furrow; plant cells form a cell plate." },
+      { title: "Cancer & Cell Cycle Control", text: "Cancer results from mutations in proto-oncogenes (become oncogenes — accelerators stuck on) and tumor suppressor genes (brakes removed). Cell cycle checkpoints fail, leading to uncontrolled division. The p53 tumor suppressor is mutated in ~50% of human cancers." }
+    ],
+    timeline: [
+      { year: "1882", event: "<strong>Walther Flemming describes mitosis</strong> in detail using aniline dyes, naming the process and the threadlike structures (chromosomen, or chromosomes)." },
+      { year: "1951", event: "<strong>HeLa cells established</strong> from Henrietta Lacks — the first immortal human cell line, derived from her cervical cancer, which has been used in research ever since without her family's initial knowledge or consent." },
+      { year: "1971", event: "<strong>Howard Temin & David Baltimore discover reverse transcriptase</strong> in retroviruses — Nobel Prize 1975 — revealing that genetic information can flow from RNA back to DNA." },
+      { year: "1983", event: "<strong>p53 identified as a tumor suppressor</strong>; later found to be the most frequently mutated gene in human cancers, earning it the nickname 'guardian of the genome.'" },
+      { year: "2001", event: "<strong>Leland Hartwell, Tim Hunt & Paul Nurse receive the Nobel Prize</strong> for discovering cyclins, CDKs, and the molecular machinery that controls the cell cycle — a breakthrough in understanding cancer." }
+    ],
+    figures: [
+      { initials: "HL", name: "Henrietta Lacks", note: "Patient whose cervical cancer cells (taken in 1951 without informed consent) became the HeLa cell line — the first immortal human cell line. HeLa cells contributed to the polio vaccine, cancer research, and countless scientific breakthroughs; her story raises ongoing ethical questions about tissue ownership and informed consent." },
+      { initials: "LH", name: "Leland Hartwell", note: "Cell biologist who identified the first cell cycle genes (CDC genes) in yeast and discovered the START checkpoint in G₁, establishing the genetic basis of cell cycle control. He shared the 2001 Nobel Prize in Physiology or Medicine for this work." },
+      { initials: "TH", name: "Tim Hunt", note: "Biochemist who discovered cyclins — proteins that oscillate in concentration and drive the cell cycle by activating CDKs. Hunt observed that certain proteins were synthesized and then destroyed in synchrony with cell division in sea urchin eggs, revealing the molecular clock of the cell cycle." },
+      { initials: "DP", name: "David Baltimore", note: "Virologist who co-discovered reverse transcriptase (1970), showing that RNA can be copied into DNA. This overturned the 'central dogma' as previously understood and led to breakthroughs in retrovirus biology, the development of antiretroviral HIV drugs, and recombinant DNA technology." }
+    ],
+    questions: [
+      { q: "At which cell cycle checkpoint is the most critical 'go/no-go' decision for cell division made in most cells?", opts: ["G₂/M checkpoint, where DNA replication accuracy is confirmed", "Spindle assembly checkpoint (M phase), where chromosome attachment is verified", "G₁/S checkpoint (restriction point), where the cell commits to dividing or enters G₀", "S phase checkpoint, where the rate of DNA synthesis is regulated"], answer: 2, explain: "The G₁ restriction point (also called the R point or Start) is where most cells make the key commitment to divide or exit the cycle into G₀ quiescence. Growth factors, cell size, and nutrient availability are assessed here. Past this point, the cell typically proceeds through S phase and division regardless of external signals." },
+      { q: "A proto-oncogene differs from an oncogene in that:", opts: ["Proto-oncogenes only exist in cancer cells; oncogenes are in normal cells", "Proto-oncogenes are normal genes that promote cell growth; oncogenes are mutated versions that cause uncontrolled growth", "Proto-oncogenes suppress tumor formation; oncogenes promote normal cell division", "Oncogenes require two mutations to become active; proto-oncogenes require only one"], answer: 1, explain: "Proto-oncogenes are normal cellular genes that regulate growth and division — they're the accelerator pedals. Mutations that create oncogenes lock the accelerator: the gene product is permanently active or overexpressed, driving uncontrolled cell division. This is a gain-of-function mutation; typically only one allele needs to be mutated (dominant)." },
+      { q: "In a signal transduction pathway, second messengers such as cAMP primarily function to:", opts: ["Directly bind DNA to activate transcription factors in the nucleus", "Amplify and relay the signal inside the cell after receptor activation", "Transport the signal molecule across the plasma membrane", "Activate the receptor protein on the cell surface"], answer: 1, explain: "Second messengers (cAMP, IP₃, Ca²⁺, DAG) are small intracellular molecules that amplify and broadcast the signal inside the cell — one activated receptor can produce thousands of cAMP molecules, activating many protein kinases. They are critical because most signaling molecules (hormones, neurotransmitters) cannot cross the lipid bilayer." }
+    ]
+  },
+  {
+    number: "V", roman: "V",
+    period: "Big Idea 3",
+    title: "Heredity & Genetics",
+    concepts: [
+      { title: "Mendelian Genetics", text: "Mendel's laws: segregation (each gamete receives one allele of each gene) and independent assortment (genes on different chromosomes sort independently). Extensions include incomplete dominance, codominance, multiple alleles (ABO blood type), polygenic traits, and epistasis — all of which modify simple Mendelian ratios." },
+      { title: "Chromosomal Inheritance", text: "Morgan's work with Drosophila established that genes are on chromosomes and that sex-linked traits are carried on the X chromosome. Linked genes violate independent assortment; recombination frequency measures their distance. Nondisjunction causes aneuploidy (Down syndrome, Turner syndrome, Klinefelter syndrome)." },
+      { title: "DNA Replication", text: "Replication is semiconservative: each strand serves as a template. Key enzymes: helicase (unwinds), primase (RNA primer), DNA polymerase III (synthesizes 5'→3'), DNA polymerase I (removes primers), ligase (joins Okazaki fragments). The leading strand is continuous; the lagging strand is synthesized in fragments." },
+      { title: "Meiosis", text: "Meiosis produces four haploid gametes from one diploid cell. Meiosis I separates homologous pairs; meiosis II separates sister chromatids. Crossing over (chiasmata) during prophase I creates genetic recombination — the main source of genetic variation in sexually reproducing species." }
+    ],
+    timeline: [
+      { year: "1866", event: "<strong>Gregor Mendel publishes 'Experiments on Plant Hybridization'</strong> — largely ignored for 35 years, it contained the laws of segregation and independent assortment that founded genetics." },
+      { year: "1900", event: "<strong>Mendel's work rediscovered</strong> simultaneously by de Vries, Correns, and Tschermak — launching classical genetics as a modern science." },
+      { year: "1910", event: "<strong>Thomas Hunt Morgan demonstrates sex-linked inheritance</strong> in Drosophila, confirming that genes are carried on chromosomes and establishing the chromosomal theory of inheritance." },
+      { year: "1953", event: "<strong>Watson & Crick's double helix</strong> immediately suggested a mechanism for DNA replication — semiconservative copying from complementary strands." },
+      { year: "1958", event: "<strong>Meselson & Stahl confirm semiconservative replication</strong> using density-gradient centrifugation with heavy ¹⁵N-labeled DNA — one of the most elegant experiments in biology." }
+    ],
+    figures: [
+      { initials: "GM", name: "Gregor Mendel", note: "Augustinian friar and botanist who between 1856 and 1863 crossed pea plants in a monastery garden and discovered the laws of segregation and independent assortment. His statistical approach was revolutionary but was ignored until 1900. He is now called the 'father of genetics.'" },
+      { initials: "TM", name: "Thomas Hunt Morgan", note: "Geneticist who used Drosophila melanogaster to show that genes are on chromosomes (1910), discovered sex linkage, and established the concept of genetic linkage and crossing over. He founded the 'fly room' at Columbia University and received the Nobel Prize in 1933." },
+      { initials: "MS", name: "Matthew Meselson & Franklin Stahl", note: "Scientists who in 1958 designed the 'most beautiful experiment in biology' — using ¹⁵N heavy isotope labeling and density-gradient centrifugation to prove that DNA replication is semiconservative, confirming Watson & Crick's structural prediction." },
+      { initials: "BM", name: "Barbara McClintock", note: "Geneticist who discovered transposable elements ('jumping genes') in maize in the 1940s–50s. Dismissed for decades, her work was vindicated when transposons were found in all genomes; she received the Nobel Prize in Physiology or Medicine in 1983, at age 81." }
+    ],
+    questions: [
+      { q: "Two parents who are both carriers for a recessive disorder have a child. What is the probability that the child is affected?", opts: ["0% — carriers cannot pass on disease", "25% — one in four children will be homozygous recessive", "50% — half of all children of carriers are affected", "75% — most offspring of two carriers are affected"], answer: 1, explain: "Two carriers are both Aa. A Punnett square gives AA (25%), Aa (50%), aa (25%). Only aa individuals are affected — a 1 in 4 (25%) chance. This is the classic Mendelian recessive cross. AP genetics questions often test whether students can correctly calculate probabilities from crosses rather than just predict phenotype ratios." },
+      { q: "During meiosis I, what event produces the greatest genetic diversity among gametes?", opts: ["DNA replication, which introduces new mutations", "Cytokinesis, which divides cytoplasm unequally between daughter cells", "Crossing over between non-sister chromatids of homologous chromosomes during prophase I", "Independent assortment of sister chromatids during anaphase I"], answer: 2, explain: "Crossing over (recombination) during prophase I physically exchanges segments between non-sister chromatids of homologous chromosomes, creating new combinations of alleles on a single chromosome. This, along with independent assortment of homologs during anaphase I, is the major source of genetic variation in sexual reproduction." },
+      { q: "The Meselson-Stahl experiment supported the semiconservative model of DNA replication because:", opts: ["All DNA in the second generation appeared at the light (¹⁴N) density", "After two generations, DNA appeared at only heavy (¹⁵N) or light (¹⁴N) density with no hybrid", "After one generation, all DNA appeared at an intermediate hybrid density, and after two generations both hybrid and light DNA were present", "After one generation, half the DNA was heavy and half was light, with no hybrid DNA"], answer: 2, explain: "After one generation in ¹⁴N medium, all DNA was hybrid (intermediate density) — each molecule had one old ¹⁵N strand and one new ¹⁴N strand. After two generations, half was hybrid and half was light. This 'hybrid-then-split' pattern is exactly what semiconservative replication predicts, ruling out conservative (all heavy or all light after gen 1) and dispersive (all intermediate forever) models." }
+    ]
+  },
+  {
+    number: "VI", roman: "VI",
+    period: "Big Idea 3",
+    title: "Gene Expression & Biotechnology",
+    concepts: [
+      { title: "Transcription & Translation", text: "The central dogma: DNA → RNA → Protein. Transcription in the nucleus converts a gene into pre-mRNA (then mRNA after splicing). Translation at ribosomes converts mRNA codons into amino acid sequences using tRNA anticodons and the genetic code. The code is redundant, universal, and nearly unambiguous." },
+      { title: "Gene Regulation", text: "In prokaryotes, the lac operon model shows how transcription is controlled by repressors and activators responding to environmental signals. In eukaryotes, gene expression is regulated at multiple levels: chromatin remodeling, transcription factors, RNA processing, RNA interference (miRNA, siRNA), and post-translational modification." },
+      { title: "Mutations & Their Effects", text: "Mutations alter DNA sequence. Point mutations: silent (no amino acid change), missense (different amino acid), nonsense (early stop codon). Frameshift mutations from insertions/deletions are typically most severe. Mutations can be beneficial, neutral, or harmful; somatic mutations affect only the individual; germline mutations are heritable." },
+      { title: "Biotechnology", text: "Recombinant DNA technology uses restriction enzymes to cut DNA, ligase to paste, and vectors to deliver genes into host cells. PCR amplifies specific sequences using Taq polymerase. CRISPR-Cas9 edits genes with precision. Gel electrophoresis separates DNA by size. These tools underpin medicine, agriculture, and forensics." }
+    ],
+    timeline: [
+      { year: "1941", event: "<strong>Beadle & Tatum propose 'one gene–one enzyme'</strong> hypothesis from Neurospora experiments — establishing that genes specify protein function (later refined to 'one gene–one polypeptide')." },
+      { year: "1961", event: "<strong>Jacob & Monod describe the lac operon</strong> — the first molecular model of gene regulation, showing how bacteria turn genes on and off in response to environmental signals." },
+      { year: "1973", event: "<strong>Cohen & Boyer produce the first recombinant DNA</strong> — inserting a frog gene into E. coli using restriction enzymes and plasmid vectors, launching the biotechnology era." },
+      { year: "1983", event: "<strong>Kary Mullis invents PCR</strong> (polymerase chain reaction) — a method to amplify any DNA sequence millions of times in hours. He received the Nobel Prize in Chemistry in 1993." },
+      { year: "2012", event: "<strong>Jennifer Doudna & Emmanuelle Charpentier describe CRISPR-Cas9</strong> as a programmable gene-editing tool — awarded the Nobel Prize in Chemistry in 2020, the first all-female Nobel duo in a scientific category." }
+    ],
+    figures: [
+      { initials: "JD", name: "Jennifer Doudna", note: "Biochemist who co-developed CRISPR-Cas9 as a precision gene-editing tool (2012), sharing the 2020 Nobel Prize in Chemistry with Emmanuelle Charpentier. CRISPR has rapidly transformed biology, medicine, and agriculture — and raised major ethical questions about germline editing in humans." },
+      { initials: "JM", name: "Jacques Monod & François Jacob", note: "French biologists who described the lac operon in 1961 — the first molecular model of gene regulation. Their operon concept (promoter, operator, structural genes, regulator) remains the foundational framework for understanding how cells control gene expression." },
+      { initials: "KM", name: "Kary Mullis", note: "Chemist who invented the polymerase chain reaction (PCR) in 1983 while driving on a California highway. PCR allows any segment of DNA to be amplified billions of times, enabling DNA fingerprinting, diagnosis of genetic diseases, and the detection of pathogens — including COVID-19." },
+      { initials: "BM", name: "George Beadle & Edward Tatum", note: "Geneticists who irradiated Neurospora crassa mold and analyzed nutritional mutants to show that each gene controls one enzyme — the 'one gene–one enzyme' hypothesis (1941), awarded the Nobel Prize in 1958. This was the first direct link between genes and biochemical function." }
+    ],
+    questions: [
+      { q: "A mutation that changes a codon from UAU (Tyr) to UAA is classified as a:", opts: ["Silent mutation, because both code for the same amino acid", "Missense mutation, because a different amino acid is inserted", "Nonsense mutation, because UAA is a stop codon that terminates translation early", "Frameshift mutation, because the reading frame shifts by one position"], answer: 2, explain: "UAA, UAG, and UGA are the three stop codons. A point mutation that converts a sense codon to a stop codon is a nonsense mutation — it causes premature termination of translation, usually producing a nonfunctional truncated protein. This is typically more severe than a missense mutation (wrong amino acid) or a silent mutation (same amino acid)." },
+      { q: "In the lac operon, transcription of the structural genes occurs when:", opts: ["Lactose is absent and the repressor protein is bound to the operator", "Lactose is present (as allolactose), binding the repressor and releasing the operator", "The repressor protein binds RNA polymerase to activate transcription", "Glucose is present, maximizing the CAP activator's effect on the promoter"], answer: 1, explain: "Allolactose (a metabolite of lactose) acts as an inducer — it binds the lac repressor, changing its shape so it can no longer bind the operator. With the operator free, RNA polymerase can transcribe the structural genes (lacZ, lacY, lacA) encoding enzymes for lactose metabolism. No lactose = repressor bound = no transcription." },
+      { q: "CRISPR-Cas9 achieves gene editing by:", opts: ["Randomly mutating the entire genome to find beneficial changes", "Using guide RNA to direct the Cas9 nuclease to a specific DNA sequence, where it makes a double-strand cut", "Inserting new genes into the genome using viral vectors without cutting DNA", "Methylating specific genes to silence their expression permanently"], answer: 1, explain: "CRISPR-Cas9 uses a programmable guide RNA (gRNA) that is complementary to the target DNA sequence. The gRNA directs the Cas9 protein to that location, where it cuts both strands. The cell's repair machinery then either disrupts the gene (NHEJ) or inserts a new sequence (HDR). The precision of gRNA targeting is what makes CRISPR revolutionary." }
+    ]
+  },
+  {
+    number: "VII", roman: "VII",
+    period: "Big Idea 1",
+    title: "Natural Selection & Evolution",
+    concepts: [
+      { title: "Darwin's Natural Selection", text: "Evolution by natural selection requires: heritable variation in a population, differential reproductive success (fitness), and environmental selection pressure. Over generations, allele frequencies shift. Darwin's On the Origin of Species (1859) synthesized these ideas with fossil evidence and biogeographic patterns." },
+      { title: "Population Genetics & Hardy-Weinberg", text: "The Hardy-Weinberg equation (p² + 2pq + q² = 1; p + q = 1) describes allele frequencies in a non-evolving population. Deviations from H-W equilibrium indicate evolution: natural selection, genetic drift, gene flow, mutation, or non-random mating are occurring." },
+      { title: "Speciation", text: "New species form when gene flow between populations is interrupted. Allopatric speciation (geographic isolation) is most common. Sympatric speciation occurs without geographic barriers (polyploidy in plants). Reproductive isolating mechanisms — prezygotic and postzygotic — prevent gene flow between species." },
+      { title: "Evidence for Evolution", text: "Multiple lines of evidence support evolution: the fossil record, biogeography (similar environments, different continents — analogous structures), comparative anatomy (homologous structures, vestigial organs), comparative embryology, and molecular evidence (DNA sequence similarity, universal genetic code)." }
+    ],
+    timeline: [
+      { year: "1809", event: "<strong>Lamarck proposes inheritance of acquired characteristics</strong> — wrong mechanism, but the first serious scientific theory of evolution, establishing that species change over time." },
+      { year: "1858", event: "<strong>Darwin & Wallace present natural selection</strong> jointly at the Linnean Society — Wallace's independent discovery prompted Darwin to finally publish." },
+      { year: "1859", event: "<strong>Darwin publishes On the Origin of Species</strong> — the foundational text of modern biology, synthesizing evidence for evolution by natural selection." },
+      { year: "1918", event: "<strong>Ronald Fisher reconciles Mendelian genetics with Darwinian evolution</strong> — establishing population genetics and the Modern Synthesis (1930s–1950s)." },
+      { year: "1972", event: "<strong>Gould & Eldredge propose punctuated equilibrium</strong> — evolution proceeds in bursts of rapid change separated by long periods of stasis, challenging the view that evolution is always gradual." }
+    ],
+    figures: [
+      { initials: "CD", name: "Charles Darwin", note: "Naturalist who formulated the theory of evolution by natural selection after observations during the voyage of the HMS Beagle (1831–1836). On the Origin of Species (1859) is the most influential work in biology — providing a unifying mechanism for the diversity of life." },
+      { initials: "AW", name: "Alfred Russel Wallace", note: "Naturalist who independently developed the theory of natural selection while working in the Malay Archipelago (1858), prompting Darwin to publish. Wallace also developed biogeography as a field and proposed the Wallace Line — a faunal boundary in Southeast Asia." },
+      { initials: "SG", name: "Stephen Jay Gould", note: "Paleontologist and evolutionary biologist who with Niles Eldredge proposed punctuated equilibrium (1972) — the idea that evolutionary change is concentrated in geologically brief episodes of rapid change rather than being constant and gradual. A prolific and influential science writer." },
+      { initials: "RF", name: "Ronald Fisher", note: "Statistician and geneticist who synthesized Mendelian genetics with Darwinian natural selection in The Genetical Theory of Natural Selection (1930), founding modern population genetics. His work explained how quantitative traits (controlled by many genes) could evolve by natural selection." }
+    ],
+    questions: [
+      { q: "In a population of beetles, a new pesticide kills all green beetles but not brown ones. After several generations, the population is almost entirely brown. This is an example of:", opts: ["Genetic drift, because allele frequency changed by random chance", "Artificial selection, because humans applied the selection pressure intentionally", "Natural selection, because a heritable trait (color) affects survival and reproduction in the environment", "Gene flow, because brown alleles entered the population from outside"], answer: 2, explain: "Natural selection occurs when heritable variation (brown vs. green color) affects differential survival and reproduction in a given environment. The pesticide is the environmental selection pressure; brown beetles survive and reproduce more, so the frequency of brown alleles increases over generations. Even though the pesticide is human-made, the selection is still natural selection — it operates on heritable variation." },
+      { q: "A population is in Hardy-Weinberg equilibrium for a gene with two alleles (A and a). If the frequency of the recessive allele (a) is 0.3, what is the expected frequency of heterozygotes (Aa)?", opts: ["0.09", "0.42", "0.49", "0.30"], answer: 1, explain: "If q = 0.3 (frequency of a), then p = 0.7 (frequency of A). Heterozygote frequency = 2pq = 2(0.7)(0.3) = 0.42. The H-W equation is one of the most tested calculations in AP Biology — you must know p + q = 1 and p² + 2pq + q² = 1, and be able to solve for any unknown from a given frequency." },
+      { q: "Homologous structures in different species are evidence of common ancestry because:", opts: ["They perform the same function in every species, suggesting convergent evolution", "They share fundamental underlying anatomy derived from the same ancestral structure, despite differing functions", "They developed independently in response to similar environmental pressures", "They are composed of identical DNA sequences across all species that possess them"], answer: 1, explain: "Homologous structures (e.g., human arm, whale flipper, bat wing, horse leg) share common underlying skeletal elements (humerus, radius, ulna, carpals) inherited from a common ancestor — even though they now perform different functions. This structural similarity despite functional divergence is powerful evidence for common descent. Analogous structures (similar function, different origin) reflect convergent evolution, not common ancestry." }
+    ]
+  },
+  {
+    number: "VIII", roman: "VIII",
+    period: "Big Idea 4",
+    title: "Ecology & Biological Systems",
+    concepts: [
+      { title: "Ecosystem Structure", text: "Ecosystems consist of biotic (living) and abiotic (non-living) components. Energy flows unidirectionally through trophic levels (producers → primary consumers → secondary consumers → decomposers), with ~10% transferred at each level. Matter cycles (carbon, nitrogen, phosphorus) through biotic and abiotic compartments." },
+      { title: "Population Ecology", text: "Population growth follows logistic growth (S-curve) in resource-limited environments, approaching carrying capacity (K). Factors limiting growth: density-dependent (competition, disease, predation) and density-independent (weather, natural disasters). Life history strategies (r vs. K selection) describe adaptive tradeoffs." },
+      { title: "Community Ecology", text: "Species interact through competition, predation, mutualism, commensalism, and parasitism. These interactions shape community structure. Keystone species have disproportionate effects. Ecological succession (primary and secondary) describes how communities change over time after disturbance." },
+      { title: "Biodiversity & Conservation", text: "Biodiversity occurs at genetic, species, and ecosystem levels. Human activities (habitat destruction, invasive species, overexploitation, pollution, climate change) drive the current mass extinction. Island biogeography theory predicts species richness from island size and distance — principles applied to habitat fragments." }
+    ],
+    timeline: [
+      { year: "1859", event: "<strong>Darwin's Origin</strong> lays groundwork for understanding adaptation and species interactions in ecological communities." },
+      { year: "1935", event: "<strong>Arthur Tansley coins 'ecosystem'</strong> — establishing the concept of the biotic community plus its abiotic environment as a functioning system with energy flow and nutrient cycling." },
+      { year: "1953", event: "<strong>Evelyn Hutchinson and H.T. Odum quantify energy flow</strong> in ecosystems — establishing trophic level efficiency and the energetic basis of food webs." },
+      { year: "1967", event: "<strong>MacArthur & Wilson publish The Theory of Island Biogeography</strong> — a mathematical framework predicting species richness from island size and distance, later applied to habitat fragmentation and conservation biology." },
+      { year: "2019", event: "<strong>IPBES Global Assessment Report</strong> warns that 1 million species face extinction due to human activity — the most comprehensive review of global biodiversity loss, directly linking to AP Biology's conservation ecology content." }
+    ],
+    figures: [
+      { initials: "RW", name: "Robert MacArthur & E.O. Wilson", note: "Ecologists who developed the Theory of Island Biogeography (1967) — predicting species richness on islands from size and distance from the mainland. Wilson later applied these principles to habitat fragments to quantify extinction risk, founding conservation biology as a discipline." },
+      { initials: "EH", name: "Evelyn Hutchinson", note: "Ecologist at Yale who formalized the ecological niche concept, mentored a generation of ecologists, and pioneered the quantitative study of energy flow in ecosystems. Often called the 'father of modern ecology,' his influence shaped the field's theoretical foundations." },
+      { initials: "RP", name: "Robert Paine", note: "Ecologist who coined 'keystone species' after showing that removing sea stars (Pisaster) from a tidal pool caused the entire community to collapse into a mussel monoculture (1966). His intertidal experiments transformed understanding of predator–prey dynamics and community structure." },
+      { initials: "RS", name: "Carl Sagan & Lynn Margulis", note: "Collaborated on the Gaia hypothesis framing (early 1970s) — the idea that Earth's biotic and abiotic systems are deeply interlinked and self-regulating, an early expression of systems thinking that now influences Earth system science and ecosystem ecology." }
+    ],
+    questions: [
+      { q: "Why does only about 10% of energy transfer between trophic levels in an ecosystem?", opts: ["Primary producers photosynthesize with only 10% efficiency, limiting total energy input", "Most energy is lost as heat during metabolism, respiration, and in unconsumed biomass at each trophic level", "Decomposers consume 90% of energy before it can be passed to primary consumers", "Herbivores absorb only 10% of the plant matter they eat; the rest is exhaled as CO₂"], answer: 1, explain: "The ~10% rule (ecological efficiency) reflects that most energy in biomass at each level is used for metabolism (lost as heat in respiration), excreted, or simply not eaten. Only the energy stored in new biomass is available to the next trophic level. This is why food chains are short (rarely more than 4–5 links) and why eating lower on the food chain is energetically more efficient." },
+      { q: "A population of rabbits in a meadow grows rapidly at first, then levels off near the meadow's carrying capacity. This pattern is best described as:", opts: ["Exponential growth, because the population initially doubles rapidly", "Logistic growth, because growth slows as resources become limiting and the population stabilizes near K", "Density-independent regulation, because population size fluctuates unpredictably", "Boom-and-bust cycling, because the population will crash after reaching carrying capacity"], answer: 1, explain: "Logistic growth (S-curve) occurs when a population initially grows rapidly (like exponential growth) but slows as it approaches the environment's carrying capacity (K) due to density-dependent factors — competition for food, space, and mates; increased predation and disease. The graph produces an S-shape, leveling off at K." },
+      { q: "Removing a keystone species from an ecosystem most likely results in:", opts: ["A temporary decline in biodiversity that quickly recovers as other species fill the niche", "Dramatic changes in community structure, often leading to a large decrease in species diversity", "No significant change because other species compensate by shifting their ecological roles", "An increase in primary productivity because competition for resources is reduced"], answer: 1, explain: "A keystone species has a disproportionately large effect on community structure relative to its biomass. Its removal causes a cascade of changes — prey populations explode, competing species are displaced, and overall diversity typically collapses. Robert Paine's classic sea star removal experiment showed a community collapse from 15+ species to a mussel monoculture." }
+    ]
+  }
+];
+
+let currentPage = 'cover';
+let figureOpen = {};
+let quizAnswered = {};
+
+function buildSidebar() {
+  const container = document.getElementById('sidebarUnits');
+  units.forEach((u, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'sidebar-btn';
+    btn.id = `sidebar-unit-${i}`;
+    btn.innerHTML = `
+      <span class="sidebar-num">${u.roman}</span>
+      <div>
+        <div class="sidebar-unit-name">${u.title}</div>
+        <div class="sidebar-period">${u.period}</div>
+      </div>
+    `;
+    btn.onclick = () => showUnit(i);
+    container.appendChild(btn);
+  });
+}
+
+function buildCoverGrid() {
+  const grid = document.getElementById('coverGrid');
+  units.forEach((u, i) => {
+    const card = document.createElement('div');
+    card.className = 'cover-unit-card';
+    card.innerHTML = `
+      <div class="cover-unit-card-num">Unit ${u.roman}</div>
+      <div class="cover-unit-card-title">${u.title}</div>
+      <div class="cover-unit-card-period">${u.period}</div>
+    `;
+    card.onclick = () => showUnit(i);
+    grid.appendChild(card);
+  });
+}
+
+function buildUnitPanels() {
+  const container = document.getElementById('unitPanels');
+  units.forEach((u, ui) => {
+    figureOpen[ui] = null;
+    quizAnswered[ui] = {};
+
+    const panel = document.createElement('div');
+    panel.className = 'unit-panel';
+    panel.id = `unit-panel-${ui}`;
+
+    const conceptsHtml = u.concepts.map(c => `
+      <div class="concept-card">
+        <h4>${c.title}</h4>
+        <p>${c.text}</p>
+      </div>
+    `).join('');
+
+    const timelineHtml = u.timeline.map(t => `
+      <div class="timeline-row">
+        <div class="timeline-year">${t.year}</div>
+        <div class="timeline-line">
+          <div class="timeline-dot"></div>
+          <div class="timeline-connector"></div>
+        </div>
+        <div class="timeline-event">${t.event}</div>
+      </div>
+    `).join('');
+
+    const figuresHtml = u.figures.map((f, fi) => `
+      <div>
+        <div class="figure-pill" id="pill-${ui}-${fi}" onclick="toggleFigure(${ui},${fi})">
+          <div class="figure-avatar">${f.initials}</div>
+          <span class="figure-name">${f.name}</span>
+        </div>
+        <div class="figure-detail" id="fig-${ui}-${fi}"><strong>${f.name}:</strong> ${f.note}</div>
+      </div>
+    `).join('');
+
+    const quizHtml = u.questions.map((q, qi) => `
+      <div class="quiz-q" id="qq-${ui}-${qi}">
+        <div class="quiz-q-text">${qi+1}. ${q.q}</div>
+        <div class="quiz-options">
+          ${q.opts.map((o,oi) => `
+            <button class="quiz-option" id="qo-${ui}-${qi}-${oi}" onclick="answerQ(${ui},${qi},${oi})">
+              <span class="quiz-letter">${['A','B','C','D'][oi]}</span>${o}
+            </button>
+          `).join('')}
+        </div>
+        <div class="quiz-explain" id="qe-${ui}-${qi}">${q.explain}</div>
+      </div>
+    `).join('');
+
+    panel.innerHTML = `
+      <div class="unit-header">
+        <div class="unit-num-large">${u.roman}</div>
+        <div class="unit-meta-block">
+          <div class="unit-period-badge">${u.period}</div>
+          <div class="unit-title">${u.title}</div>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab(${ui},'concepts',this)">Key Concepts</button>
+        <button class="tab-btn" onclick="switchTab(${ui},'timeline',this)">Key Discoveries</button>
+        <button class="tab-btn" onclick="switchTab(${ui},'figures',this)">Key Scientists</button>
+        <button class="tab-btn" onclick="switchTab(${ui},'quiz',this)">Practice Quiz</button>
+      </div>
+
+      <div class="tab-content active" id="tab-${ui}-concepts">
+        <div class="section-label">Core concepts for this unit</div>
+        <div class="concepts-grid">${conceptsHtml}</div>
+      </div>
+
+      <div class="tab-content" id="tab-${ui}-timeline">
+        <div class="section-label">Landmark discoveries in chronological order</div>
+        <div class="timeline-list">${timelineHtml}</div>
+      </div>
+
+      <div class="tab-content" id="tab-${ui}-figures">
+        <div class="section-label">Select a scientist to read their profile</div>
+        <div class="figures-pills">${figuresHtml}</div>
+      </div>
+
+      <div class="tab-content" id="tab-${ui}-quiz">
+        <div class="section-label">Three AP-style questions — select an answer to reveal the explanation</div>
+        <div>${quizHtml}</div>
+      </div>
+
+      <div class="prev-next">
+        <button class="nav-btn" onclick="showUnit(${ui-1})" ${ui===0?'disabled':''}>← Unit ${ui>0?units[ui-1].roman:''}</button>
+        <button class="nav-btn" onclick="showUnit(${ui+1})" ${ui===units.length-1?'disabled':''}>Unit ${ui<units.length-1?units[ui+1].roman:''} →</button>
+      </div>
+    `;
+
+    container.appendChild(panel);
+  });
+}
+
+function showPage(page, btn) {
+  document.getElementById('page-cover').style.display = page === 'cover' ? 'block' : 'none';
+  document.querySelectorAll('.unit-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  currentPage = page;
+  window.scrollTo(0, 0);
+}
+
+function showUnit(i) {
+  if (i < 0 || i >= units.length) return;
+  document.getElementById('page-cover').style.display = 'none';
+  document.querySelectorAll('.unit-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(`unit-panel-${i}`).classList.add('active');
+  document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`sidebar-unit-${i}`).classList.add('active');
+  currentPage = `unit-${i}`;
+  window.scrollTo(0, 0);
+}
+
+function switchTab(ui, tab, btn) {
+  const panel = document.getElementById(`unit-panel-${ui}`);
+  panel.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  panel.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`tab-${ui}-${tab}`).classList.add('active');
+  btn.classList.add('active');
+}
+
+function toggleFigure(ui, fi) {
+  const detail = document.getElementById(`fig-${ui}-${fi}`);
+  const pill = document.getElementById(`pill-${ui}-${fi}`);
+  const wasOpen = figureOpen[ui] === fi;
+
+  if (figureOpen[ui] !== null) {
+    document.getElementById(`fig-${ui}-${figureOpen[ui]}`).classList.remove('visible');
+    document.getElementById(`pill-${ui}-${figureOpen[ui]}`).classList.remove('open');
+  }
+
+  if (!wasOpen) {
+    detail.classList.add('visible');
+    pill.classList.add('open');
+    figureOpen[ui] = fi;
+  } else {
+    figureOpen[ui] = null;
+  }
+}
+
+function answerQ(ui, qi, oi) {
+  if (quizAnswered[ui][qi]) return;
+  quizAnswered[ui][qi] = true;
+
+  const correct = units[ui].questions[qi].answer;
+  const opts = document.querySelectorAll(`[id^="qo-${ui}-${qi}-"]`);
+  const explain = document.getElementById(`qe-${ui}-${qi}`);
+
+  opts.forEach((o, i) => {
+    o.classList.add('disabled');
+    if (i === correct) {
+      o.classList.add(oi === correct ? 'correct' : 'reveal-correct');
+    } else if (i === oi) {
+      o.classList.add('incorrect');
+    }
+  });
+  explain.classList.add('visible');
+}
+
+buildSidebar();
+buildCoverGrid();
+buildUnitPanels();
+</script>
+</body>
+</html>
